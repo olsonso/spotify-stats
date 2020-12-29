@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   ChakraProvider,
   Box,
@@ -7,29 +7,29 @@ import {
   VStack,
   Text,
   Button,
-} from '@chakra-ui/react';
-import { SpotifyApiContext, User } from 'react-spotify-api';
-import { SpotifyAuth, Scopes } from 'react-spotify-auth';
-import Cookies from 'js-cookie';
-import { UserTop } from 'react-spotify-api';
+} from "@chakra-ui/react";
+import { SpotifyApiContext, User } from "react-spotify-api";
+import { SpotifyAuth, Scopes } from "react-spotify-auth";
+import Cookies from "js-cookie";
+import { UserTop } from "react-spotify-api";
 
-const clientId = 'cf20756001cf45c59e8a0ad5c87eafc0';
-const redirectUri = 'http://localhost:3000/';
+const clientId = "cf20756001cf45c59e8a0ad5c87eafc0";
+const redirectUri = "http://localhost:3000/";
 
 function App() {
   const [spotifyAuthToken, setSpotifyAuthToken] = useState();
 
   function logout() {
-    Cookies.remove('spotifyAuthToken');
-    window.location = '/';
+    Cookies.remove("spotifyAuthToken");
+    window.location = "/";
   }
 
   useEffect(() => {
-    setSpotifyAuthToken(Cookies.get('spotifyAuthToken'));
-  }, [Cookies.get('spotifyAuthToken')]);
+    setSpotifyAuthToken(Cookies.get("spotifyAuthToken"));
+  }, [Cookies.get("spotifyAuthToken")]);
 
   const options = {
-    time_range: 'long_term',
+    time_range: "long_term",
   };
   return (
     <ChakraProvider theme={theme}>
@@ -41,16 +41,16 @@ function App() {
               <SpotifyApiContext.Provider value={spotifyAuthToken}>
                 <div>Thank you for authenticating with Spotify!</div>
                 <User>
-                  {user =>
+                  {(user) =>
                     user && user.data ? (
                       <div className="flex items-center justify-between">
                         <div className="font-medium text-gray-900">
                           Hello, {user.data.display_name}
                         </div>
                         <UserTop type="tracks" options={options}>
-                          {tracks =>
+                          {(tracks) =>
                             tracks && tracks.data ? (
-                              tracks.data.items.map(track => {
+                              tracks.data.items.map((track) => {
                                 return <div key={track.id}>{track.name}</div>;
                               })
                             ) : (
@@ -69,7 +69,6 @@ function App() {
                 </User>
               </SpotifyApiContext.Provider>
             ) : (
-              // Display the login page
               <SpotifyAuth
                 redirectUri={redirectUri}
                 clientID={clientId}
