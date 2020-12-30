@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ChakraProvider, Box, theme, VStack, Heading } from "@chakra-ui/react";
+import { ChakraProvider, Box, VStack, Heading } from "@chakra-ui/react";
 import { SpotifyApiContext } from "react-spotify-api";
 import { SpotifyAuth, Scopes } from "react-spotify-auth";
 import Cookies from "js-cookie";
 import UserComponent from "./components/User";
+import theme from "./theme";
 
 const clientId = "cf20756001cf45c59e8a0ad5c87eafc0";
 const redirectUri = "http://localhost:3000/";
@@ -18,7 +19,6 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
-        <Heading>Music Matcher</Heading>
         {spotifyAuthToken ? (
           <SpotifyApiContext.Provider value={spotifyAuthToken}>
             <UserComponent />

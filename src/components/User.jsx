@@ -1,5 +1,5 @@
 import React from "react";
-import { Spinner, Button, Flex, Spacer } from "@chakra-ui/react";
+import { Spinner, Button, Flex, Spacer, Heading } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { User } from "react-spotify-api";
 import TrackTable from "./TracksTable";
@@ -11,27 +11,36 @@ function logout() {
 }
 
 const Container = styled.div`
-  width: 400px;
+  width: 500px;
   margin: 0 auto;
 `;
 
 const UserComponent = () => (
-  <User>
-    {(user) =>
-      user?.data ? (
-        <Container>
-          <Flex>
-            <div>Hello, {user.data.display_name}</div>
-            <Spacer />
-            <Button onClick={logout}>Logout</Button>
-          </Flex>
-          <TrackTable />
-        </Container>
-      ) : (
-        <Spinner />
-      )
-    }
-  </User>
+  <>
+    <Flex>
+      <Spacer />
+      <Heading>Music Matcher</Heading>
+      <Spacer />
+      <div>
+        <Button onClick={logout} colorScheme="green" size="sm">
+          Logout
+        </Button>
+      </div>
+    </Flex>
+    <User>
+      {(user) =>
+        user?.data ? (
+          <>
+            <Container>
+              <TrackTable />
+            </Container>
+          </>
+        ) : (
+          <Spinner />
+        )
+      }
+    </User>
+  </>
 );
 
 export default UserComponent;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   Thead,
@@ -16,31 +16,40 @@ import Cookies from "js-cookie";
 
 const TracksTable = () => {
   const [topTracks, setTopTracks] = useState();
-  const token = Cookies.get("spotifyAuthToken");
+  const [timeRange, setTimeRange] = useState("long_term");
 
+  const token = Cookies.get("spotifyAuthToken");
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
 
-  const onSelect = (event) => {
-    setTopTracks(null);
+  useEffect(() => {
     axios
       .get(
-        `https://api.spotify.com/v1/me/top/tracks?time_range=${event.target.value}`,
+        `https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}`,
         config
       )
       .then((res) => {
         setTopTracks(res);
       });
-  };
+  }, [timeRange]);
 
   return (
     <>
       <div>
-        <Button>Artists</Button>
-        <Button>Songs</Button>
+        <Button colorScheme="green" size="sm">
+          Artists
+        </Button>
+        <Button colorScheme="green" size="sm">
+          Songs
+        </Button>
       </div>
-      <Select placeholder="Select time range" onChange={onSelect}>
+      <Select
+        defaultValue="All time"
+        onChange={(event) => {
+          setTimeRange(event.target.value);
+        }}
+      >
         <option value="short_term">Last 4 weeks</option>
         <option value="medium_term">Last 6 months</option>
         <option value="long_term">All time</option>
