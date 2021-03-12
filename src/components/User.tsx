@@ -2,8 +2,8 @@ import React from "react";
 import { Spinner, Button, Flex, Spacer, Heading } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { User } from "react-spotify-api";
-import TrackTable from "./TracksTable";
 import styled from "styled-components";
+import SpotifyData from "./SpotifyData";
 
 function logout() {
   Cookies.remove("spotifyAuthToken");
@@ -32,7 +32,7 @@ const UserComponent = () => (
         user?.data ? (
           <>
             <Container>
-              <TrackTable />
+              <SpotifyData />
             </Container>
           </>
         ) : (
