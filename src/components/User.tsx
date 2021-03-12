@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 function logout() {
   Cookies.remove("spotifyAuthToken");
-  window.location = "/";
+  window.location.href = "/";
 }
 
 const Container = styled.div`

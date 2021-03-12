@@ -14,9 +14,15 @@ import {
 import axios from "axios";
 import Cookies from "js-cookie";
 
+type spotifyTopTracks = {
+  data: {
+    items:[any]
+  }
+}
+
 const TracksTable = () => {
-  const [topTracks, setTopTracks] = useState();
-  const [timeRange, setTimeRange] = useState("long_term");
+  const [topTracks, setTopTracks] = useState<spotifyTopTracks>();
+  const [timeRange, setTimeRange] = useState<string>("long_term");
 
   const token = Cookies.get("spotifyAuthToken");
   const config = {
@@ -29,7 +35,7 @@ const TracksTable = () => {
         `https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}`,
         config
       )
-      .then((res) => {
+      .then((res: spotifyTopTracks) => {
         setTopTracks(res);
       });
   }, [timeRange]);
@@ -45,7 +51,7 @@ const TracksTable = () => {
         </Button>
       </div>
       <Select
-        defaultValue="All time"
+        defaultValue="long_term"
         onChange={(event) => {
           setTimeRange(event.target.value);
         }}

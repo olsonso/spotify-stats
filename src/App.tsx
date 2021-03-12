@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChakraProvider, Box, VStack, Heading } from "@chakra-ui/react";
+import { ChakraProvider, Box } from "@chakra-ui/react";
 import { SpotifyApiContext } from "react-spotify-api";
 import { SpotifyAuth, Scopes } from "react-spotify-auth";
 import Cookies from "js-cookie";
@@ -10,7 +10,7 @@ const clientId = "cf20756001cf45c59e8a0ad5c87eafc0";
 const redirectUri = "http://localhost:3000/";
 
 function App() {
-  const [spotifyAuthToken, setSpotifyAuthToken] = useState();
+  const [spotifyAuthToken, setSpotifyAuthToken] = useState<string>();
 
   useEffect(() => {
     setSpotifyAuthToken(Cookies.get("spotifyAuthToken"));
