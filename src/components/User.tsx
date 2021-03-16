@@ -3,7 +3,7 @@ import { Spinner, Button, Flex, Spacer, Heading } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { User } from "react-spotify-api";
 import styled from "styled-components";
-import SpotifyData from "./SpotifyData";
+import SpotifyData from "./SpotifyData/SpotifyData";
 
 function logout() {
   Cookies.remove("spotifyAuthToken");
@@ -15,32 +15,45 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const UserComponent = () => (
-  <>
+const UserComponent = () => {
+
+ const expiredToken = (user) => {
+   if(user?.error){
+     return logout()
+   } else {
+     return(
+       <Spinner />
+     )
+   }
+ }
+
+    return(
+      <>
     <Flex>
       <Spacer />
-      <Heading>Music Matcher</Heading>
+      <Heading>What You Listening to?</Heading>
       <Spacer />
       <div>
-        <Button onClick={logout} colorScheme="green" size="sm">
+        <Button onClick={logout} colorScheme="green" size="sm" variant="link">
           Logout
         </Button>
       </div>
     </Flex>
     <User>
       {(user) =>
-        user?.data ? (
+        user?.data && !user?.error? (
           <>
             <Container>
               <SpotifyData />
             </Container>
           </>
         ) : (
-          <Spinner />
+         expiredToken(user)
         )
       }
     </User>
   </>
-);
+)
+}
 
 export default UserComponent;

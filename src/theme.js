@@ -15,6 +15,9 @@ const theme = extendTheme({
           textDecoration: "underline",
         },
       },
+      table: {
+        color: 'white'
+      }
     },
   },
 });

@@ -14,25 +14,25 @@ import {
       <>
         {topArtists && (
           <>
-            <Table variant="simple" size="sm" width="500px">
+            <Table colorScheme="green"  size="sm" width="500px">
               <Thead>
                 <Tr>
                   <Th>Album</Th>
-                  <Th>Song</Th>
                   <Th>Artist</Th>
+                  <Th>Genres</Th>
                 </Tr>
               </Thead>
               {topArtists?.items.map((artist) => (
-                  <div>Artist {artist.name}</div>
-                // <Tbody key={track.name}>
-                //   <Tr>
-                //     <Td>
-                //       <Image src={track.album.images[2].url} />
-                //     </Td>
-                //     <Td>{track.name}</Td>
-                //     <Td>{track.artists[0].name}</Td>
-                //   </Tr>
-                // </Tbody>
+                <Tbody key={artist.name}>
+                  <Tr>
+                    <Td>
+                      <Image src={artist.images[2].url} boxSize="50px"
+    objectFit="cover"/>
+                    </Td>
+                    <Td>{artist.name}</Td>
+                    <Td>{artist.genres[0]}</Td>
+                  </Tr>
+                </Tbody>
               ))}
             </Table>
           </>

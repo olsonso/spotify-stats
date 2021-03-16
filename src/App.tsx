@@ -19,6 +19,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
+        {console.log('here', spotifyAuthToken)}
         {spotifyAuthToken ? (
           <SpotifyApiContext.Provider value={spotifyAuthToken}>
             <UserComponent />

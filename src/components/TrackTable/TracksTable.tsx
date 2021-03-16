@@ -14,7 +14,7 @@ const TracksTable = ({topTracks}: any) => {
     <>
       {topTracks && (
         <>
-          <Table variant="simple" size="sm" width="500px">
+          <Table colorScheme="green" size="sm" width="500px">
             <Thead>
               <Tr>
                 <Th>Album</Th>
@@ -26,7 +26,8 @@ const TracksTable = ({topTracks}: any) => {
               <Tbody key={track.name}>
                 <Tr>
                   <Td>
-                    <Image src={track.album.images[2].url} />
+                    <Image src={track.album.images[2].url} boxSize="50px"
+    objectFit="cover" />
                   </Td>
                   <Td>{track.name}</Td>
                   <Td>{track.artists[0].name}</Td>
