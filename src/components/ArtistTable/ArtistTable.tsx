@@ -1,11 +1,10 @@
 import { Table, Thead, Tbody, Tr, Th, Td, Image } from "@chakra-ui/react";
-import { TrackData } from "../../types/types";
+import { ArtistData } from "../../types/types";
 
-type TrackTableProps = {
-  data: TrackData;
+type ArtistTableProps = {
+  data: ArtistData;
 };
-
-const TracksTable = ({ data }: TrackTableProps) => {
+const ArtistTable = ({ data }: ArtistTableProps) => {
   return (
     <>
       {data && (
@@ -14,22 +13,22 @@ const TracksTable = ({ data }: TrackTableProps) => {
             <Thead>
               <Tr>
                 <Th>Album</Th>
-                <Th>Song</Th>
                 <Th>Artist</Th>
+                <Th>Genres</Th>
               </Tr>
             </Thead>
-            {data?.items.map((track) => (
-              <Tbody key={track.name}>
+            {data?.items.map((artist) => (
+              <Tbody key={artist.name}>
                 <Tr>
                   <Td>
                     <Image
-                      src={track?.album?.images?.[0]?.url}
+                      src={artist?.images[0]?.url}
                       boxSize="50px"
                       objectFit="cover"
                     />
                   </Td>
-                  <Td>{track.name}</Td>
-                  <Td>{track?.artists?.[0]?.name}</Td>
+                  <Td>{artist.name}</Td>
+                  <Td>{artist.genres[0]}</Td>
                 </Tr>
               </Tbody>
             ))}
@@ -40,4 +39,4 @@ const TracksTable = ({ data }: TrackTableProps) => {
   );
 };
 
-export default TracksTable;
+export default ArtistTable;
