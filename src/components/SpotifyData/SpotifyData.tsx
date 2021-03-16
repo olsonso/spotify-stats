@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Select, Spinner } from "@chakra-ui/react";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -8,15 +8,16 @@ import ArtistTable from "../ArtistTable/ArtistTable";
 import "./styles.scss";
 import { TrackData, ArtistData, SearchTerm } from "../../types/types";
 
-const SpotifyData = () => {
-  const [topTracks, setTopTracks] = useState<TrackData>();
-  const [topArtists, setTopArtists] = useState<ArtistData>();
+const SpotifyData = (): React.ReactElement => {
+  const [topTracks, setTopTracks] = useState<TrackData | null>(null);
+  const [topArtists, setTopArtists] = useState<ArtistData | null>(null);
   const [timeRange, setTimeRange] = useState<string>("long_term");
   const [selectedSearchTerm, setSelectedSearchTerm] = useState<SearchTerm>(
     "tracks"
   );
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  // export into function
   const token = Cookies.get("spotifyAuthToken");
   const config = {
     headers: { Authorization: `Bearer ${token}` },
@@ -31,11 +32,9 @@ const SpotifyData = () => {
       )
       .then((res: any) => {
         setIsLoading(false);
-        if (res.data?.items[0]?.type === "track") {
-          setTopTracks(res?.data);
-        } else {
-          setTopArtists(res?.data);
-        }
+        res.data?.items[0]?.type === "track"
+          ? setTopTracks(res?.data)
+          : setTopArtists(res?.data);
       });
   }, [timeRange, selectedSearchTerm]);
 
